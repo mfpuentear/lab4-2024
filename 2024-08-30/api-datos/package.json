@@ -1,0 +1,15 @@
+{
+  "name": "api-datos",
+  "version": "1.0.0",
+  "description": "api-datos en expressjs",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matias De la Puente",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
