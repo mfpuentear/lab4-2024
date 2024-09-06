@@ -1,5 +1,5 @@
 import express from "express";
-import { sumasRouter } from "./sumas.js";
+import sumasRouter from "./sumas.js";
 import { divisionesRouter } from "./divisiones.js";
 
 const app = express();
