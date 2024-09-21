@@ -1,0 +1,16 @@
+{
+  "name": "api-calculadora",
+  "version": "1.0.0",
+  "description": "Api de una calculadora",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch app.js"
+  },
+  "author": "Matias De la Puente",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
