@@ -1,0 +1,17 @@
+{
+  "name": "api-tareas",
+  "version": "1.0.0",
+  "description": "Api de tareas",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env --watch app.js"
+  },
+  "author": "Matias De la Puente",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.3"
+  }
+}
