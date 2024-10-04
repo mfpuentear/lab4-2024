@@ -61,10 +61,51 @@ const validarPersona = (req, res, next) => {
   }
 
   // Validar apellido
+
   // Validar edad
+  const edad = req.body.edad;
+  // Validar que edad este presente
+  if (edad == undefined) {
+    return res.status(400).send({ mensaje: "La edad es requerido" });
+  }
+  // Validar que edad sea un numero
+  if (typeof edad !== "number") {
+    return res.status(400).send({ mensaje: "La edad no es un numero" });
+  }
+  // Verificar que edad sea un entero
+  if (!Number.isInteger(edad)) {
+    return res.status(400).send({ mensaje: "La edad no es un numero entero" });
+  }
+  // Validar que edad sea positiva
+  if (edad <= 0) {
+    return res.status(400).send({ mensaje: "La edad no es positiva" });
+  }
+
   // Validar altura
   // Validar peso
+
   // Validar fecha de nacimiento
+  const fechaNacimiento = new Date(req.body.fechaNacimiento);
+  if (isNaN(fechaNacimiento.getDate())) {
+    return res
+      .status(400)
+      .send({ mensaje: "La fecha de nacimiento no es valida" });
+  }
+  if (fechaNacimiento > new Date()) {
+    return res
+      .status(400)
+      .send({ mensaje: "La fecha de nacimiento no puede ser posterior a hoy" });
+  }
+  const fecha1 = new Date("1900-01-01");
+  const fecha2 = new Date("1900-01-01");
+  console.log(fecha1.getTime());
+  console.log(fecha2);
+  //if (!(fecha1 < fecha2) && !(fecha1 > fecha2)) {
+  if (fecha1.getTime() === fecha2.getTime()) {
+    console.log("fechas iguales");
+  } else {
+    console.log("fechas distintas");
+  }
 
   next();
 };
@@ -72,7 +113,51 @@ const validarPersona = (req, res, next) => {
 // GET /personas
 // Consultar por todas las personas
 router.get("/", async (req, res) => {
-  const [personas] = await db.execute("select * from personas");
+  const filtros = [];
+  const parametros = [];
+
+  // edad_gt: edades mayores a
+  const edad_gt = req.query.edad_gt;
+  if (edad_gt != undefined) {
+    filtros.push("edad > ?");
+    parametros.push(edad_gt);
+  }
+
+  // edad_lt: edades menores a
+  const edad_lt = req.query.edad_lt;
+  if (edad_lt != undefined) {
+    filtros.push("edad < ?");
+    parametros.push(edad_lt);
+  }
+
+  // altura_gt: altura mayores a
+  const altura_gt = req.query.altura_gt;
+  if (altura_gt != undefined) {
+    filtros.push("altura > ?");
+    parametros.push(altura_gt);
+  }
+
+  // altura_lt: altura menores a
+  const altura_lt = req.query.altura_lt;
+  if (altura_lt != undefined) {
+    filtros.push("altura < ?");
+    parametros.push(altura_lt);
+  }
+
+  let sql = "select * from personas";
+
+  if (filtros.length > 0) {
+    sql += ` where ${filtros.join(" and ")}`;
+  }
+
+  const order_by = req.query.order_by;
+  if (order_by == "apellido") {
+    sql += " order by apellido";
+  }
+
+  console.log(sql);
+
+  const [personas] = await db.execute(sql, parametros);
   res.send({ personas });
 });
 
