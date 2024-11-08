@@ -1,0 +1,22 @@
+{
+  "name": "api-auth",
+  "version": "1.0.0",
+  "description": "Api de seguridad",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env --watch app.js"
+  },
+  "author": "Matias De la Puente",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.3",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
+  }
+}
